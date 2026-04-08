@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBD ASMITHA // LOFI EDITION</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --accent: #ffb347; /* Chill Amber */
+            --bg: #0f0c29;    /* Midnight Blue */
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+            color: white;
+        }
+
+        /* Initial Setup */
+        #landing {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .start-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 12px 30px;
+            cursor: pointer;
+            letter-spacing: 5px;
+            font-size: 0.8rem;
+            transition: 0.5s;
+            opacity: 0.8;
+        }
+
+        .start-btn:hover {
+            background: white;
+            color: black;
+            opacity: 1;
+        }
+
+        /* Main Experience */
+        #main-content {
+            display: none;
+            height: 100vh;
+            width: 100vw;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Chill Emoji Rain */
+        .emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            pointer-events: none;
+            z-index: 1;
+            filter: grayscale(0.3) contrast(0.8);
+        }
+
+        /* The Lo-Fi Polaroid Frame */
+        .polaroid-frame {
+            position: relative;
+            z-index: 10;
+            width: 300px;
+            padding: 15px 15px 60px 15px;
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            transform: rotate(-3deg) translateY(100px);
+            opacity: 0;
+        }
+
+        .polaroid-frame img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            filter: sepia(0.2) contrast(0.9);
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Soft Floating Text */
+        .text-overlay {
+            position: relative;
+            z-index: 10;
+            margin-top: 50px;
+            text-align: center;
+            opacity: 0;
+        }
+
+        .text-overlay h1 {
+            font-size: 2.5rem;
+            letter-spacing: 15px;
+            font-weight: 300;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+
+        /* Lo-Fi Static Grain Effect */
+        .grain {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noise_Texture.png');
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grain"></div>
+
+    <div id="landing">
+        <p style="margin-bottom: 20px; opacity: 0.5;">[ PRESS PLAY FOR CHILL VIBES ]</p>
+        <button class="start-btn" onclick="begin()">ENTER</button>
+    </div>
+
+    <main id="main-content">
+        <div class="polaroid-frame" id="photo">
+            <img src="asmitha.jpg" alt="Asmitha">
+            <div class="caption">ASMITHA // 2026</div>
+        </div>
+
+        <div class="text-overlay" id="message">
+            <h1>HAPPY BIRTHDAY</h1>
+            <p style="margin-top: 10px; opacity: 0.6; letter-spacing: 5px;">STAY CHILL • STAY BLESSED</p>
+        </div>
+    </main>
+
+    <audio id="lofi-track" loop src="your-lofi-song.mp3"></audio>
+
+    <script>
+        const audio = document.getElementById('lofi-track');
+        const items = ['🎂', '💐', '🎶', '✨', '🎈', '☁️'];
+
+        function createDrifter() {
+            const e = document.createElement('div');
+            e.className = 'emoji';
+            e.innerText = items[Math.floor(Math.random() * items.length)];
+            e.style.left = Math.random() * 100 + 'vw';
+            e.style.top = '110vh';
+            e.style.opacity = 0.4 + Math.random() * 0.4;
+            document.body.appendChild(e);
+
+            gsap.to(e, {
+                y: '-120vh',
+                x: (Math.random() - 0.5) * 150,
+                rotation: Math.random() * 45,
+                duration: 8 + Math.random() * 7,
+                ease: "none",
+                onComplete: () => e.remove()
+            });
+        }
+
+        function begin() {
+            document.getElementById('landing').style.display = 'none';
+            document.getElementById('main-content').style.display = 'flex';
+            
+            // Try to play audio (will work if you've added the file)
+            audio.play().catch(() => console.log("Add 'your-lofi-song.mp3' to play music"));
+
+            // Chill Animations
+            gsap.to("#photo", { 
+                opacity: 1, 
+                y: 0, 
+                rotation: 2, 
+                duration: 2.5, 
+                ease: "expo.out" 
+            });
+
+            gsap.to("#message", { 
+                opacity: 1, 
+                delay: 1, 
+                duration: 2 
+            });
+
+            // Start the slow, chill emoji drift
+            setInterval(createDrifter, 600);
+
+            // Gentle parallax
+            document.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 10;
+                const y = (e.clientY / window.innerHeight - 0.5) * 10;
+                gsap.to("#photo", { x: x, y: y, duration: 1 });
+            });
+        }
+    </script>
+</body>
+</html>
